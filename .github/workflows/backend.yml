@@ -1,0 +1,43 @@
+name: Deploy Backend to Render
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'backend/**'
+      - '.github/workflows/backend.yml'
+
+jobs:
+  test-and-deploy:
+    name: Test & Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.21'
+          cache: true
+          cache-dependency-path: backend/go.sum
+
+      - name: Download dependencies
+        working-directory: backend
+        run: go mod download
+
+      - name: Vet
+        working-directory: backend
+        run: go vet ./...
+
+      - name: Build (verify it compiles)
+        working-directory: backend
+        run: CGO_ENABLED=0 GOOS=linux go build -o server .
+
+      - name: Trigger Render deploy
+        if: success()
+        run: |
+          curl -fsSL -X POST "${{ secrets.RENDER_BACKEND_DEPLOY_HOOK }}"
+        env:
+          RENDER_BACKEND_DEPLOY_HOOK: ${{ secrets.RENDER_BACKEND_DEPLOY_HOOK }}

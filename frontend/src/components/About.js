@@ -14,7 +14,7 @@ const About = () => (
     <div className="container">
       <div className="section-header">
         <span className="section-badge">Về chúng tôi</span>
-        <h2 className="section-title">Tại sao gia nhập TechRecruit?</h2>
+        <h2 className="section-title">Tại sao gia nhập TechRecruit  pro? </h2>
         <p className="section-desc">
           Chúng tôi xây dựng môi trường làm việc tốt nhất để mỗi người đều phát triển tối đa tiềm năng
         </p>

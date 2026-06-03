@@ -67,20 +67,19 @@ jobs:
     runs-on: ubuntu-latest
     if: success()
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Trigger Render Blueprint deployment
+      - name: Trigger Backend Web Service Deploy
         run: |
-          curl -fsSL -X POST "${{ secrets.RENDER_DEPLOY_HOOK }}"
-        env:
-          RENDER_DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
+          curl -fsSL -X POST "${{ secrets.RENDER_BACKEND_HOOK }}"
+
+      - name: Trigger Frontend Static Site Deploy
+        run: |
+          curl -fsSL -X POST "${{ secrets.RENDER_FRONTEND_HOOK }}"
 
       - name: Wait for deployment
-        run: sleep 60
+        run: sleep 30
 
       - name: Health check
         run: |
           echo "Checking backend health..."
-          curl -f https://recruit-be.onrender.com/health || echo "Backend not ready yet"
-          echo "Deployment initiated - check Render dashboard for details"
+          curl -f https://recruit-langding.onrender.com/health || echo "Backend web service is initializing..."
+          echo "Deployment signals sent successfully - track real-time build logs on your Render Dashboard."

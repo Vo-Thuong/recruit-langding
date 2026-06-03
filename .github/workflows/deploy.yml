@@ -2,7 +2,7 @@ name: Full Build & Deploy Pipeline
 
 on:
   push:
-    branches: [main, vothuong]
+    branches: [main, vothuong, recruit-landing-brand]
     paths:
       - "backend/**"
       - "frontend/**"

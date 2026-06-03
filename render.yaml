@@ -10,7 +10,7 @@ services:
     rootDir: backend
     buildCommand: go build -o server .
     startCommand: ./server
-    plan: free
+    plan: starter
     region: singapore
     envVars:
       - key: DATABASE_URL
@@ -28,7 +28,6 @@ services:
     rootDir: frontend
     buildCommand: npm ci && npm run build
     staticPublishPath: ./build
-    plan: free
     envVars:
       # Replace with your actual backend URL after deploying recruit-be
       - key: REACT_APP_API_URL
@@ -47,5 +46,4 @@ databases:
   - name: recruit-db
     databaseName: recruitdb
     user: recruit_user
-    plan: free
     region: singapore

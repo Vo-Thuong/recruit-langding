@@ -15,10 +15,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4  # Kéo code từ repo GitHub vào máy ảo
 
       - name: Set up Go
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v5  # Cài đặt môi trường Go
         with:
           go-version: "1.21"
           cache: true
@@ -30,7 +30,7 @@ jobs:
 
       - name: Run vet
         working-directory: backend
-        run: go vet ./...
+        run: go vet ./...  # KIỂM TRA MÃ NGUỒN (CI)
 
       - name: Build backend
         working-directory: backend
@@ -41,10 +41,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4  
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v4  # Cài đặt môi trường Node.js
         with:
           node-version: "20"
           cache: "npm"
@@ -52,11 +52,11 @@ jobs:
 
       - name: Install dependencies
         working-directory: frontend
-        run: npm ci
+        run: npm ci   # Cài đặt sạch sẽ các thư viện trong package.json
 
       - name: Build
         working-directory: frontend
-        run: npm run build
+        run: npm run build  # KIỂM TRA BUILD TĨNH (CI)
         env:
           REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
           CI: false

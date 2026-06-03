@@ -29,7 +29,6 @@ services:
     buildCommand: npm ci && npm run build
     staticPublishPath: ./build
     plan: free
-    region: singapore
     envVars:
       # Replace with your actual backend URL after deploying recruit-be
       - key: REACT_APP_API_URL
